@@ -1,5 +1,6 @@
 package com.leme.cookbook;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -38,5 +39,8 @@ public class MainActivity extends AppCompatActivity implements BakingItemAdapter
     @Override
     public void onClick(Baking baking) {
         Toast.makeText(this, "Baking id: " + baking.getId(), Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, BakingDetailActivity.class);
+        intent.putExtra("baking_selected", baking);
+        startActivity(intent);
     }
 }
