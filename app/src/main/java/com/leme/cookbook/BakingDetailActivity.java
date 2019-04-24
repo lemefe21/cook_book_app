@@ -15,46 +15,58 @@ import java.util.List;
 
 public class BakingDetailActivity extends AppCompatActivity {
 
-    private boolean mTwoPane;
     private Baking baking;
+    private DetailFragment detailFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_baking_detail);
 
-        if(findViewById(R.id.main_fragment_linear_layout) != null) {
-            mTwoPane = true;
+        detailFragment = new DetailFragment();
 
-            if(savedInstanceState == null) {
-
-                DetailFragment detailFragment = new DetailFragment();
-
-                Intent intent = getIntent();
-                if(getIntent().hasExtra("baking_selected")) {
-                    baking = intent.getExtras().getParcelable("baking_selected");
-                    detailFragment.setBakingData(baking);
-                }
-
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                FragmentTransaction tx = fragmentManager.beginTransaction();
-                tx.replace(R.id.detail_fragment, detailFragment);
-                tx.replace(R.id.steps_fragment, new StepsFragment());
-                tx.commit();
-
-            }
-
-        } else {
-            mTwoPane = false;
+        Intent intent = getIntent();
+        if(getIntent().hasExtra("baking_selected")) {
+            baking = intent.getExtras().getParcelable("baking_selected");
+            detailFragment.setBakingData(baking);
         }
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction tx = fragmentManager.beginTransaction();
+        tx.replace(R.id.detail_fragment, detailFragment);
+
+        if(isTabletScreen()) {
+            tx.replace(R.id.steps_fragment, new StepsFragment());
+        }
+
+        tx.commit();
+
+    }
+
+    private boolean isTabletScreen() {
+        return getResources().getBoolean(R.bool.tabletScreen);
     }
 
     public void getStepsBakingClick(List<Step> steps) {
         FragmentManager fragmentManager = getSupportFragmentManager();
-        StepsFragment stepsFragment =
-                (StepsFragment) fragmentManager.findFragmentById(R.id.steps_fragment);
 
-        stepsFragment.setStepsData(steps);
+        if(!isTabletScreen()) {
+            FragmentTransaction tx = fragmentManager.beginTransaction();
+            StepsFragment stepFragment = new StepsFragment();
+            Bundle params = new Bundle();
+            params.putParcelableArrayList("steps_list_to_fragment", steps);
+            detailFragment.setArguments(params);
+
+            tx.replace(R.id.steps_fragment, stepFragment);
+            tx.addToBackStack(null);
+            tx.commit();
+        } else {
+            StepsFragment stepsFragment =
+                    (StepsFragment) fragmentManager.findFragmentById(R.id.steps_fragment);
+
+            stepsFragment.setStepsData(steps);
+        }
+
     }
 
 }

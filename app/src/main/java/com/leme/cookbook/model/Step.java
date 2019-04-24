@@ -1,6 +1,10 @@
 package com.leme.cookbook.model;
 
-public class Step {
+import android.os.Parcelable;
+
+import java.io.Serializable;
+
+public class Step implements Parcelable {
 
     private int id;
     private String shortDescription;

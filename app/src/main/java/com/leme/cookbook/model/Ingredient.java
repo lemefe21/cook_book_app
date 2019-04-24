@@ -1,6 +1,10 @@
 package com.leme.cookbook.model;
 
-class Ingredient {
+import android.os.Parcelable;
+
+import java.io.Serializable;
+
+public class Ingredient implements Parcelable {
 
     private double quantity;
     private String measure;
