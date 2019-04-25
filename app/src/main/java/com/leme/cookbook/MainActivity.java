@@ -33,12 +33,10 @@ public class MainActivity extends AppCompatActivity implements BakingItemAdapter
         mBakingItemAdapter = new BakingItemAdapter(this, this);
         mBakingItemAdapter.setBakingData(ReadJsonUtil.loadJSONFromObject(this));
         mRecyclerView.setAdapter(mBakingItemAdapter);
-
     }
 
     @Override
     public void onClick(Baking baking) {
-        Toast.makeText(this, "Baking id: " + baking.getId(), Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, BakingDetailActivity.class);
         intent.putExtra("baking_selected", baking);
         startActivity(intent);
