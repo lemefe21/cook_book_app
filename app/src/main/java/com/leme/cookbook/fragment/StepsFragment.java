@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.leme.cookbook.R;
 import com.leme.cookbook.model.Step;
@@ -21,7 +20,7 @@ import butterknife.ButterKnife;
 public class StepsFragment extends Fragment {
 
     private List<Step> steps;
-    private int stepSequence = 1;
+    private int stepSequence = 0;
 
     @BindView(R.id.step_position_sequence)
     TextView mStepPositionSequence;
@@ -54,7 +53,7 @@ public class StepsFragment extends Fragment {
 
         Bundle params = getArguments();
         if(params != null) {
-            steps = params.getParcelableArrayList("steps_list_to_fragment");
+            steps = params.getParcelableArrayList(getString(R.string.step_list_key));
         }
 
         configStepFlow();
@@ -83,13 +82,19 @@ public class StepsFragment extends Fragment {
     }
 
     private void configStepFlow() {
-        String StepSequenceLabel = getResources().getText(R.string.baking_step_label).toString();
-        mStepPositionSequence.setText(StepSequenceLabel.concat(String.valueOf(stepSequence)));
+        String stepSequenceLabel = String.format(getResources().getString(R.string.baking_step_label), stepSequence);
+        mStepPositionSequence.setText(stepSequenceLabel);
 
-        if(stepSequence == 1) {
+        Step step = steps.get(stepSequence);
+
+        mStepShortDescription.setText(step.getShortDescription());
+        mStepDescription.setText(step.getDescription());
+        mStepVideoUrl.setText(step.getVideoURL());
+
+        if(stepSequence == 0) {
             mStepBtnNext.setVisibility(View.VISIBLE);
             mStepBtnPrevious.setVisibility(View.INVISIBLE);
-        } else if(stepSequence == steps.size()) {
+        } else if(stepSequence == (steps.size() - 1)) {
             mStepBtnNext.setVisibility(View.INVISIBLE);
             mStepBtnPrevious.setVisibility(View.VISIBLE);
         } else {

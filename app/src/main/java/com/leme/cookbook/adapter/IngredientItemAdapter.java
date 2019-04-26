@@ -31,9 +31,11 @@ public class IngredientItemAdapter extends RecyclerView.Adapter<IngredientItemAd
 
     @NonNull
     @Override
-    public IngredientItemAdapterViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
+    public IngredientItemAdapterViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup,
+                                                              int viewType) {
 
-        View inflate = LayoutInflater.from(mContext).inflate(R.layout.detail_item_ingredient, viewGroup, false);
+        View inflate = LayoutInflater.from(mContext).inflate(R.layout.detail_item_ingredient,
+                viewGroup, false);
 
         return new IngredientItemAdapterViewHolder(inflate);
     }
@@ -42,9 +44,18 @@ public class IngredientItemAdapter extends RecyclerView.Adapter<IngredientItemAd
     public void onBindViewHolder(@NonNull IngredientItemAdapterViewHolder viewHolder, int position) {
         Ingredient ingredient = mIngredientList.get(position);
 
-        viewHolder.mDetailItemIngredient.setText(ingredient.getIngredient());
-        viewHolder.mDetailItemMeasure.setText(ingredient.getMeasure());
-        viewHolder.mDetailItemQuantity.setText(String.valueOf(ingredient.getQuantity()));
+        String ingredientItem = String.format(mContext.getResources()
+                        .getString(R.string.item_ingredient_label), ingredient.getIngredient());
+
+        String measureItem = String.format(mContext.getResources()
+                .getString(R.string.item_measure_label), ingredient.getMeasure());
+
+        String quantityItem = String.format(mContext.getResources()
+                .getString(R.string.item_quantity_label), String.valueOf(ingredient.getQuantity()));
+
+        viewHolder.mDetailItemIngredient.setText(ingredientItem);
+        viewHolder.mDetailItemMeasure.setText(measureItem);
+        viewHolder.mDetailItemQuantity.setText(quantityItem);
     }
 
     @Override

@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements BakingItemAdapter
     @Override
     public void onClick(Baking baking) {
         Intent intent = new Intent(this, BakingDetailActivity.class);
-        intent.putExtra("baking_selected", baking);
+        intent.putExtra(getString(R.string.baking_selected), baking);
         startActivity(intent);
     }
 }

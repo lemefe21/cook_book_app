@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="match_constraint">0dp</dimen>
+    <dimen name="tablet_layout_divider_weight">2dp</dimen>
+    <dimen name="tablet_layout_left_weight">1</dimen>
+    <dimen name="tablet_layout_right_weight">2</dimen>
+
+    <dimen name="baking_item_list_padding">16dp</dimen>
+    <dimen name="baking_item_list_margin">32dp</dimen>
+    <dimen name="baking_item_list_text_size">42sp</dimen>
+
+    <dimen name="ingredient_item_divider">2dp</dimen>
+    <dimen name="ingredient_item_text_margin_top">8dp</dimen>
+    <dimen name="ingredient_item_divider_margin_top">16dp</dimen>
+    <dimen name="ingredient_item_layout_padding_bottom">42sp</dimen>
+
+    <dimen name="detail_text_margin_top">8dp</dimen>
+    <dimen name="detail_list_margin_small">16dp</dimen>
+    <dimen name="detail_list_margin">24dp</dimen>
+    <dimen name="detail_label_margin">24dp</dimen>
+    <dimen name="detail_text_size">16sp</dimen>
+    <dimen name="detail_label_text_size">24sp</dimen>
+</resources>

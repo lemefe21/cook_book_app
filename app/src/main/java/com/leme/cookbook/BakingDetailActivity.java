@@ -56,8 +56,8 @@ public class BakingDetailActivity extends AppCompatActivity {
             FragmentTransaction tx = fragmentManager.beginTransaction();
             StepsFragment stepFragment = new StepsFragment();
             Bundle params = new Bundle();
-            params.putParcelableArrayList("steps_list_to_fragment", new ArrayList<Parcelable>(steps));
-            detailFragment.setArguments(params);
+            params.putParcelableArrayList(getString(R.string.step_list_key), new ArrayList<Parcelable>(steps));
+            stepFragment.setArguments(params);
 
             tx.replace(R.id.detail_fragment, stepFragment);
             tx.addToBackStack(null);

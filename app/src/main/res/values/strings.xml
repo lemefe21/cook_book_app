@@ -1,6 +1,15 @@
 <resources>
     <string name="app_name">CookBook</string>
-    <string name="text">Baking Test</string>
+    <string name="baking_test_label">Baking Test</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="baking_step_label">Baking step </string>
+    <string name="baking_step_label">Baking step %1$d</string>
+    <string name="steps">Steps</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="baking_name_description">Baking name description</string>
+    <string name="name">Name</string>
+    <string name="item_ingredient_label">Ingredient:  %1$s</string>
+    <string name="item_measure_label">Measure: %1$s</string>
+    <string name="item_quantity_label">Quantity: %1$s</string>
+    <string name="step_list_key">steps_list_to_fragment</string>
+    <string name="baking_selected">baking_selected</string>
 </resources>
