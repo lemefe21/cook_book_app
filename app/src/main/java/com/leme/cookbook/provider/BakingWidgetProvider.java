@@ -30,19 +30,4 @@ public class BakingWidgetProvider extends AppWidgetProvider {
             updateAppWidget(context, appWidgetManager, appWidgetId);
         }
     }
-
-    @Override
-    public void onDeleted(Context context, int[] appWidgetIds) {
-        // Perform any action when one or more AppWidget instances have been deleted
-    }
-
-    @Override
-    public void onEnabled(Context context) {
-        // Perform any action when an AppWidget for this provider is instantiated
-    }
-
-    @Override
-    public void onDisabled(Context context) {
-        // Perform any action when the last AppWidget instance for this provider is deleted
-    }
 }
