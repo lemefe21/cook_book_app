@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/ingredient_item_layout_padding_bottom">
+
+    <TextView
+        android:id="@+id/detail_item_ingredient"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/item_ingredient_label"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/detail_item_measure"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/ingredient_item_text_margin_top"
+        android:text="@string/item_measure_label"
+        app:layout_constraintStart_toStartOf="@+id/detail_item_ingredient"
+        app:layout_constraintTop_toBottomOf="@+id/detail_item_ingredient" />
+
+    <TextView
+        android:id="@+id/detail_item_quantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/ingredient_item_text_margin_top"
+        android:text="@string/item_quantity_label"
+        app:layout_constraintStart_toStartOf="@+id/detail_item_measure"
+        app:layout_constraintTop_toBottomOf="@+id/detail_item_measure" />
+
+    <View
+        android:id="@+id/detail_item_ingredient_divider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ingredient_item_divider"
+        android:layout_marginTop="@dimen/ingredient_item_divider_margin_top"
+        android:background="@color/colorPrimaryDark"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/detail_item_quantity" />
+
+</android.support.constraint.ConstraintLayout>

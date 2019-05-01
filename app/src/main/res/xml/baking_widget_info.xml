@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:minWidth="170dp"
+    android:minHeight="80dp"
+    android:updatePeriodMillis="1800000"
+    android:previewImage="@drawable/ic_cook_widget_default"
+    android:resizeMode="vertical"
+    android:initialLayout="@layout/baking_widget"
+    android:widgetCategory="home_screen" />
