@@ -20,8 +20,6 @@
                 android:resource="@xml/baking_widget_info" />
         </receiver>
 
-        <service android:name=".service.BakingWidgetService" />
-
         <service
             android:name=".service.BakingListWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />

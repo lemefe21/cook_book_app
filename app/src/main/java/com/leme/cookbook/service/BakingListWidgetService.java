@@ -2,12 +2,12 @@ package com.leme.cookbook.service;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
 import com.leme.cookbook.R;
 import com.leme.cookbook.model.Baking;
+import com.leme.cookbook.provider.BakingWidgetProvider;
 import com.leme.cookbook.util.ReadJsonUtil;
 
 import java.util.List;
@@ -16,26 +16,26 @@ public class BakingListWidgetService extends RemoteViewsService {
 
     @Override
     public RemoteViewsFactory onGetViewFactory(Intent intent) {
-        return new BakingListRemoteViewFactory(this.getApplicationContext());
+        return new BakingListRemoteViewFactory(this.getApplicationContext(), intent);
     }
 
     class BakingListRemoteViewFactory implements RemoteViewsService.RemoteViewsFactory {
 
-        Context mContext;
-        List<Baking> bakings;
+        private Context mContext;
+        private List<Baking> bakings;
 
-        public BakingListRemoteViewFactory(Context applicationContext) {
+        public BakingListRemoteViewFactory(Context applicationContext, Intent intent) {
             mContext = applicationContext;
         }
 
         @Override
         public void onCreate() {
-
+            bakings = ReadJsonUtil.loadJSONFromObject(mContext);
         }
 
         @Override
         public void onDataSetChanged() {
-            bakings = ReadJsonUtil.loadJSONFromObject(mContext);
+
         }
 
         @Override
@@ -50,16 +50,14 @@ public class BakingListWidgetService extends RemoteViewsService {
 
         @Override
         public RemoteViews getViewAt(int position) {
-
             Baking baking = bakings.get(position);
+
             RemoteViews views = new RemoteViews(mContext.getPackageName(), R.layout.baking_widget);
             views.setTextViewText(R.id.widget_baking_name, baking.getName());
 
-            Bundle extras = new Bundle();
-            extras.putLong("baking_selected", baking.getId());
-            Intent fillInIntent = new Intent();
-            fillInIntent.putExtras(extras);
-            views.setOnClickFillInIntent(R.id.widget_baking_list, fillInIntent);
+            Intent intentFilter = new Intent();
+            intentFilter.putExtra(BakingWidgetProvider.FILTER_BAKING_ITEM, baking);
+            views.setOnClickFillInIntent(R.id.widget_item_linear_container, intentFilter);
 
             return views;
         }

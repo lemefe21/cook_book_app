@@ -11,6 +11,7 @@ import com.leme.cookbook.fragment.DetailFragment;
 import com.leme.cookbook.fragment.StepsFragment;
 import com.leme.cookbook.model.Baking;
 import com.leme.cookbook.model.Step;
+import com.leme.cookbook.provider.BakingWidgetProvider;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,8 +27,13 @@ public class BakingDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_baking_detail);
 
         Intent intent = getIntent();
+        Baking bakingExtra = getIntent().getParcelableExtra(BakingWidgetProvider.FILTER_BAKING_ITEM);
+
         if(getIntent().hasExtra("baking_selected")) {
             baking = intent.getExtras().getParcelable("baking_selected");
+        } else if(getIntent() != null && bakingExtra != null) {
+            baking = bakingExtra;
+            setIntent(null);
         }
 
         detailFragment = new DetailFragment();
