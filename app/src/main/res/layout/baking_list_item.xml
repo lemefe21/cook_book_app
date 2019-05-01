@@ -9,14 +9,14 @@
         android:id="@+id/baking_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="32dp"
-        android:padding="16dp"
+        android:layout_margin="@dimen/baking_item_list_margin"
+        android:padding="@dimen/baking_item_list_padding"
         android:background="@android:color/white"
         android:textColor="@color/colorDark"
-        android:textSize="42sp"
+        android:textSize="@dimen/baking_item_list_text_size"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:text="@string/text"/>
+        android:text="@string/baking_test_label"/>
 
 </android.support.constraint.ConstraintLayout>

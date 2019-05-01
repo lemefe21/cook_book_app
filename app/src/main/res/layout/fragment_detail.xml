@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorAccent"
+    tools:context=".BakingDetailActivity">
+
+    <TextView
+        android:id="@+id/detail_fragment_label_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/detail_label_margin"
+        android:layout_marginLeft="@dimen/detail_label_margin"
+        android:layout_marginTop="@dimen/detail_label_margin"
+        android:text="@string/name"
+        android:textSize="@dimen/detail_label_text_size"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/detail_fragment_name"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/detail_text_margin_top"
+        android:textSize="@dimen/detail_text_size"
+        android:text="@string/baking_name_description"
+        app:layout_constraintStart_toStartOf="@+id/detail_fragment_label_name"
+        app:layout_constraintTop_toBottomOf="@+id/detail_fragment_label_name" />
+
+    <TextView
+        android:id="@+id/detail_fragment_label_ingredients"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/detail_label_margin"
+        android:text="@string/ingredients"
+        android:textSize="@dimen/detail_label_text_size"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/detail_fragment_name"
+        app:layout_constraintTop_toBottomOf="@+id/detail_fragment_name" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/detail_fragment_recyclerview_ingredients"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_height="@dimen/match_constraint"
+        android:layout_marginEnd="@dimen/detail_list_margin"
+        android:layout_marginRight="@dimen/detail_list_margin"
+        android:layout_marginTop="@dimen/detail_list_margin"
+        android:layout_marginBottom="@dimen/detail_list_margin"
+        app:layout_constraintBottom_toTopOf="@+id/detail_fragment_button_to_steps"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/detail_fragment_label_ingredients"
+        app:layout_constraintTop_toBottomOf="@+id/detail_fragment_label_ingredients" />
+
+    <Button
+        android:id="@+id/detail_fragment_button_to_steps"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/detail_list_margin"
+        android:background="@color/colorPrimaryDark"
+        android:text="@string/steps"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</android.support.constraint.ConstraintLayout>
