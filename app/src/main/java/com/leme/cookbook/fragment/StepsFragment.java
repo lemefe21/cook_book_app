@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +36,7 @@ public class StepsFragment extends Fragment {
 
     private List<Step> steps;
     private int stepSequence = 0;
+    public static final String LIST_INDEX = "step_list_index";
 
     SimpleExoPlayer mExoPlayer;
 
@@ -65,6 +67,10 @@ public class StepsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        if(savedInstanceState != null) {
+            Log.i("teste", "Step savedInstanceState");
+        }
 
         View view = inflater.inflate(R.layout.fragment_steps, container, false);
 
@@ -162,5 +168,10 @@ public class StepsFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         releasePlayer();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle currentState) {
+        currentState.putInt(LIST_INDEX, stepSequence);
     }
 }
