@@ -9,12 +9,12 @@
         android:id="@+id/widget_baking_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:layout_margin="18dp"
+        android:padding="@dimen/widget_title_padding"
+        android:layout_margin="@dimen/widget_default_text_size"
         android:background="@android:color/white"
         android:textColor="@color/colorDark"
         android:text="@string/loading"
-        android:textSize="14sp"
+        android:textSize="@dimen/widget_default_text_size"
         android:textStyle="bold"/>
 
 </LinearLayout>

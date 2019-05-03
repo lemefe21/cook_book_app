@@ -62,7 +62,7 @@ public class Baking implements Parcelable {
         parcel.writeString(image);
     }
 
-    static Parcelable.Creator<Baking> CREATOR = new Parcelable.Creator<Baking>() {
+    public static Parcelable.Creator<Baking> CREATOR = new Parcelable.Creator<Baking>() {
         @Override
         public Baking createFromParcel(Parcel parcel) {
             return new Baking(parcel);

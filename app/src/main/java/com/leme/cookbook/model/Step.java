@@ -53,7 +53,7 @@ public class Step implements Parcelable {
         parcel.writeString(thumbnailURL);
     }
 
-    static Parcelable.Creator<Step> CREATOR = new Parcelable.Creator<Step>() {
+    public static Parcelable.Creator<Step> CREATOR = new Parcelable.Creator<Step>() {
         @Override
         public Step createFromParcel(Parcel parcel) {
             return new Step(parcel);

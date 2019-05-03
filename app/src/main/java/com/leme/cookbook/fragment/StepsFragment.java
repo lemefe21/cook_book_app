@@ -70,6 +70,8 @@ public class StepsFragment extends Fragment {
 
         if(savedInstanceState != null) {
             Log.i("teste", "Step savedInstanceState");
+            int instanceStateInt = savedInstanceState.getInt(LIST_INDEX);
+            stepSequence = instanceStateInt;
         }
 
         View view = inflater.inflate(R.layout.fragment_steps, container, false);

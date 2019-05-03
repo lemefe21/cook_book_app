@@ -50,10 +50,7 @@ public class BakingDetailActivity extends AppCompatActivity {
             }
 
             tx.commit();
-        } else {
-            Toast.makeText(this, "savedInstanceState", Toast.LENGTH_SHORT).show();
         }
-
     }
 
     private boolean isTabletScreen() {
