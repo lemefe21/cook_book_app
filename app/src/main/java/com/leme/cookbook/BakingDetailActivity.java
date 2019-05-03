@@ -19,8 +19,13 @@ import java.util.List;
 
 public class BakingDetailActivity extends AppCompatActivity {
 
+    public static final String BAKING_INDEX = "baking_index";
+    public static final String BAKING_LIST = "baking_list";
     public static final String BAKING_SELECTED = "baking_selected";
+
+    private List<Baking> bakings;
     private Baking baking;
+    private int bakingIndex;
     private DetailFragment detailFragment;
 
     @Override
@@ -33,6 +38,8 @@ public class BakingDetailActivity extends AppCompatActivity {
 
         if(savedInstanceState == null) {
             if(getIntent().hasExtra(BAKING_SELECTED)) {
+                bakings = intent.getParcelableArrayListExtra(BAKING_LIST);
+                bakingIndex = intent.getIntExtra(BAKING_INDEX, 0);
                 baking = intent.getExtras().getParcelable(BAKING_SELECTED);
             } else if(getIntent() != null && bakingExtra != null) {
                 baking = bakingExtra;
@@ -40,7 +47,7 @@ public class BakingDetailActivity extends AppCompatActivity {
             }
 
             detailFragment = new DetailFragment();
-            detailFragment.setBakingData(baking);
+            detailFragment.setBakingData(bakings, bakingIndex);
 
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction tx = fragmentManager.beginTransaction();

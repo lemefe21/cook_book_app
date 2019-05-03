@@ -73,7 +73,7 @@ public class BakingWidgetProvider extends AppWidgetProvider {
 
         for (int i = 0; i < appWidgetIds.length; i++) {
 
-            Intent intentService = new Intent(context, BakingListWidgetService.class);
+            /*Intent intentService = new Intent(context, BakingListWidgetService.class);
             intentService.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetIds[i]);
 
             RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.baking_list_widget);
@@ -85,7 +85,7 @@ public class BakingWidgetProvider extends AppWidgetProvider {
 
             views.setPendingIntentTemplate(R.id.widget_baking_list, pendingIntentFilter);
 
-            appWidgetManager.updateAppWidget(appWidgetIds[i], views);
+            appWidgetManager.updateAppWidget(appWidgetIds[i], views);*/
         }
         super.onUpdate(context, appWidgetManager, appWidgetIds);
 
