@@ -19,6 +19,7 @@ import java.util.List;
 
 public class BakingDetailActivity extends AppCompatActivity {
 
+    public static final String BAKING_SELECTED = "baking_selected";
     private Baking baking;
     private DetailFragment detailFragment;
 
@@ -31,8 +32,8 @@ public class BakingDetailActivity extends AppCompatActivity {
         Baking bakingExtra = getIntent().getParcelableExtra(BakingWidgetProvider.FILTER_BAKING_ITEM);
 
         if(savedInstanceState == null) {
-            if(getIntent().hasExtra("baking_selected")) {
-                baking = intent.getExtras().getParcelable("baking_selected");
+            if(getIntent().hasExtra(BAKING_SELECTED)) {
+                baking = intent.getExtras().getParcelable(BAKING_SELECTED);
             } else if(getIntent() != null && bakingExtra != null) {
                 baking = bakingExtra;
                 setIntent(null);

@@ -15,6 +15,7 @@ import com.leme.cookbook.BakingDetailActivity;
 import com.leme.cookbook.R;
 import com.leme.cookbook.adapter.IngredientItemAdapter;
 import com.leme.cookbook.model.Baking;
+import com.leme.cookbook.service.BakingIngredientsService;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -51,6 +52,8 @@ public class DetailFragment extends Fragment {
                 onClickSteps();
             }
         });
+
+        BakingIngredientsService.startActionUpdateBakingWidgets(getContext(), baking.getIngredients());
 
         return view;
     }
