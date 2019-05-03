@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.leme.cookbook.fragment.DetailFragment;
 import com.leme.cookbook.fragment.StepsFragment;
@@ -29,26 +30,27 @@ public class BakingDetailActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Baking bakingExtra = getIntent().getParcelableExtra(BakingWidgetProvider.FILTER_BAKING_ITEM);
 
-        if(getIntent().hasExtra("baking_selected")) {
-            baking = intent.getExtras().getParcelable("baking_selected");
-        } else if(getIntent() != null && bakingExtra != null) {
-            baking = bakingExtra;
-            setIntent(null);
+        if(savedInstanceState == null) {
+            if(getIntent().hasExtra("baking_selected")) {
+                baking = intent.getExtras().getParcelable("baking_selected");
+            } else if(getIntent() != null && bakingExtra != null) {
+                baking = bakingExtra;
+                setIntent(null);
+            }
+
+            detailFragment = new DetailFragment();
+            detailFragment.setBakingData(baking);
+
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction tx = fragmentManager.beginTransaction();
+            tx.replace(R.id.detail_fragment, detailFragment);
+
+            if(isTabletScreen()) {
+                tx.replace(R.id.steps_fragment, new StepsFragment());
+            }
+
+            tx.commit();
         }
-
-        detailFragment = new DetailFragment();
-        detailFragment.setBakingData(baking);
-
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction tx = fragmentManager.beginTransaction();
-        tx.replace(R.id.detail_fragment, detailFragment);
-
-        if(isTabletScreen()) {
-            tx.replace(R.id.steps_fragment, new StepsFragment());
-        }
-
-        tx.commit();
-
     }
 
     private boolean isTabletScreen() {

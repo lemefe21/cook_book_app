@@ -39,7 +39,7 @@ public class Ingredient implements Parcelable {
         parcel.writeString(ingredient);
     }
 
-    static Parcelable.Creator<Ingredient> CREATOR = new Parcelable.Creator<Ingredient>() {
+    public static Parcelable.Creator<Ingredient> CREATOR = new Parcelable.Creator<Ingredient>() {
         @Override
         public Ingredient createFromParcel(Parcel parcel) {
             return new Ingredient(parcel);
