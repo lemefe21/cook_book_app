@@ -167,6 +167,12 @@ public class StepsFragment extends Fragment {
     }
 
     @Override
+    public void onStop() {
+        super.onStop();
+        releasePlayer();
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
         releasePlayer();

@@ -23,7 +23,7 @@ public class BakingItemAdapter extends RecyclerView.Adapter<BakingItemAdapter.Ba
     private List<Baking> mBakingList;
 
     public interface BakingItemAdapterOnClickHandler {
-        void onClick(Baking baking);
+        void onClick(Baking baking, int index);
     }
 
     public BakingItemAdapter(Context context, BakingItemAdapterOnClickHandler mClickHandle) {
@@ -74,8 +74,9 @@ public class BakingItemAdapter extends RecyclerView.Adapter<BakingItemAdapter.Ba
 
         @Override
         public void onClick(View view) {
+            int adapterPosition = getAdapterPosition();
             Baking baking = mBakingList.get(getAdapterPosition());
-            mClickHandle.onClick(baking);
+            mClickHandle.onClick(baking, adapterPosition);
         }
     }
 

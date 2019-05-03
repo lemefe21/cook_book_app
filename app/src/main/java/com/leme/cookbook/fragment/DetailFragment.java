@@ -1,6 +1,7 @@
 package com.leme.cookbook.fragment;
 
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,6 +16,10 @@ import com.leme.cookbook.BakingDetailActivity;
 import com.leme.cookbook.R;
 import com.leme.cookbook.adapter.IngredientItemAdapter;
 import com.leme.cookbook.model.Baking;
+import com.leme.cookbook.model.Step;
+import com.leme.cookbook.service.BakingIngredientsService;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,6 +27,8 @@ import butterknife.ButterKnife;
 public class DetailFragment extends Fragment {
 
     private Baking baking;
+    private List<Baking> bakings;
+    private int bakingIndex;
     private IngredientItemAdapter mIngredientItemAdapter;
 
     @BindView(R.id.detail_fragment_recyclerview_ingredients)
@@ -33,6 +40,12 @@ public class DetailFragment extends Fragment {
     @BindView(R.id.detail_fragment_button_to_steps)
     Button mDetailButtonToSteps;
 
+    @BindView(R.id.detail_btn_next)
+    Button mDetailButtonToNext;
+
+    @BindView(R.id.detail_btn_previous)
+    Button mDetailButtonToPrevious;
+
     public DetailFragment() {
     }
 
@@ -43,7 +56,7 @@ public class DetailFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_detail, container, false);
 
         ButterKnife.bind(this, view);
-        setDetailsInFragment(baking);
+        configDetailFlow();
 
         mDetailButtonToSteps.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,7 +65,41 @@ public class DetailFragment extends Fragment {
             }
         });
 
+        mDetailButtonToNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bakingIndex++;
+                configDetailFlow();
+            }
+        });
+
+        mDetailButtonToPrevious.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bakingIndex--;
+                configDetailFlow();
+            }
+        });
+
         return view;
+    }
+
+    private void configDetailFlow() {
+        baking = bakings.get(bakingIndex);
+        setDetailsInFragment(baking);
+
+        BakingIngredientsService.startActionUpdateBakingWidgets(getContext(), baking.getIngredients());
+
+        if(bakingIndex == 0) {
+            mDetailButtonToNext.setVisibility(View.VISIBLE);
+            mDetailButtonToPrevious.setVisibility(View.INVISIBLE);
+        } else if(bakingIndex == (bakings.size() - 1)) {
+            mDetailButtonToNext.setVisibility(View.INVISIBLE);
+            mDetailButtonToPrevious.setVisibility(View.VISIBLE);
+        } else {
+            mDetailButtonToNext.setVisibility(View.VISIBLE);
+            mDetailButtonToPrevious.setVisibility(View.VISIBLE);
+        }
     }
 
     private void onClickSteps() {
@@ -72,7 +119,8 @@ public class DetailFragment extends Fragment {
 
     }
 
-    public void setBakingData(Baking baking) {
-        this.baking = baking;
+    public void setBakingData(List<Baking> bakings, int index) {
+        this.bakings = bakings;
+        this.bakingIndex = index;
     }
 }

@@ -26,6 +26,8 @@
             android:name=".service.BakingListWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
 
+        <service android:name=".service.BakingIngredientsService"/>
+
         <activity android:name=".BakingDetailActivity"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
