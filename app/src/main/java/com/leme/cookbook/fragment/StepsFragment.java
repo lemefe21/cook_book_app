@@ -34,9 +34,16 @@ import butterknife.ButterKnife;
 
 public class StepsFragment extends Fragment {
 
+    public static final String LIST_INDEX = "step_list_index";
+    public static final String AUTOPLAY = "autoplay";
+    public static final String CURRENT_WINDOW_INDEX = "current_window_index";
+    public static final String PLAYBACK_POSITION = "playback_position";
+
     private List<Step> steps;
     private int stepSequence = 0;
-    public static final String LIST_INDEX = "step_list_index";
+    private boolean autoPlay = true;
+    private int currentWindow;
+    private long playbackPosition;
 
     SimpleExoPlayer mExoPlayer;
 
@@ -72,6 +79,10 @@ public class StepsFragment extends Fragment {
             Log.i("teste", "Step savedInstanceState");
             int instanceStateInt = savedInstanceState.getInt(LIST_INDEX);
             stepSequence = instanceStateInt;
+
+            playbackPosition = savedInstanceState.getLong(PLAYBACK_POSITION, 0);
+            currentWindow = savedInstanceState.getInt(CURRENT_WINDOW_INDEX, 0);
+            autoPlay = savedInstanceState.getBoolean(AUTOPLAY, true);
         }
 
         View view = inflater.inflate(R.layout.fragment_steps, container, false);
@@ -82,8 +93,6 @@ public class StepsFragment extends Fragment {
         if(params != null) {
             steps = params.getParcelableArrayList(getString(R.string.step_list_key));
         }
-
-        configStepFlow();
 
         mStepBtnPrevious.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,32 +153,52 @@ public class StepsFragment extends Fragment {
 
     private void initializePlayer(Uri mediaUri) {
         if(mExoPlayer == null) {
-
             TrackSelector trackSelector = new DefaultTrackSelector();
             LoadControl loadControl = new DefaultLoadControl();
+
             mExoPlayer = ExoPlayerFactory.newSimpleInstance(getContext(), trackSelector, loadControl);
             mPlayerView.setPlayer(mExoPlayer);
-            // Prepare the MediaSource.
+
             String userAgent = Util.getUserAgent(getContext(), "ClassicalMusicQuiz");
             MediaSource mediaSource = new ExtractorMediaSource(mediaUri, new DefaultDataSourceFactory(
                     getContext(), userAgent), new DefaultExtractorsFactory(), null, null);
+            mExoPlayer.setPlayWhenReady(autoPlay);
+            mExoPlayer.seekTo(currentWindow, playbackPosition);
             mExoPlayer.prepare(mediaSource);
-            mExoPlayer.setPlayWhenReady(true);
         }
     }
 
     private void releasePlayer() {
         if(mExoPlayer != null) {
-            mExoPlayer.stop();
+            playbackPosition = mExoPlayer.getCurrentPosition();
+            currentWindow = mExoPlayer.getCurrentWindowIndex();
+            autoPlay = mExoPlayer.getPlayWhenReady();
+
             mExoPlayer.release();
             mExoPlayer = null;
         }
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        configStepFlow();
+    }
+
+    @Override
     public void onStop() {
         super.onStop();
-        releasePlayer();
+        if (Util.SDK_INT > 23) {
+            releasePlayer();
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (Util.SDK_INT <= 23) {
+            releasePlayer();
+        }
     }
 
     @Override
@@ -181,5 +210,11 @@ public class StepsFragment extends Fragment {
     @Override
     public void onSaveInstanceState(Bundle currentState) {
         currentState.putInt(LIST_INDEX, stepSequence);
+
+        if (mExoPlayer == null) {
+            currentState.putLong(PLAYBACK_POSITION, playbackPosition);
+            currentState.putInt(CURRENT_WINDOW_INDEX, currentWindow);
+            currentState.putBoolean(AUTOPLAY, autoPlay);
+        }
     }
 }

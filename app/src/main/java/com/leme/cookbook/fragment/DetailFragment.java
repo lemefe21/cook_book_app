@@ -3,6 +3,8 @@ package com.leme.cookbook.fragment;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,12 +21,15 @@ import com.leme.cookbook.model.Baking;
 import com.leme.cookbook.model.Step;
 import com.leme.cookbook.service.BakingIngredientsService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class DetailFragment extends Fragment {
+
+    private static final String LIST_STATE = "LIST_STATE";
 
     private Baking baking;
     private List<Baking> bakings;
@@ -52,6 +57,10 @@ public class DetailFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        if(savedInstanceState != null) {
+            bakings = savedInstanceState.getParcelableArrayList(LIST_STATE);
+        }
 
         View view = inflater.inflate(R.layout.fragment_detail, container, false);
 
@@ -122,5 +131,11 @@ public class DetailFragment extends Fragment {
     public void setBakingData(List<Baking> bakings, int index) {
         this.bakings = bakings;
         this.bakingIndex = index;
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelableArrayList(LIST_STATE, new ArrayList<Parcelable>(bakings));
     }
 }
