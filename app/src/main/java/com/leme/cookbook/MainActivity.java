@@ -1,9 +1,10 @@
 package com.leme.cookbook;
 
 import android.content.Intent;
-import android.os.Parcelable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.support.test.espresso.idling.CountingIdlingResource;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
@@ -11,7 +12,7 @@ import android.widget.Toast;
 import com.leme.cookbook.adapter.BakingItemAdapter;
 import com.leme.cookbook.api.ApiInterface;
 import com.leme.cookbook.model.Baking;
-import com.leme.cookbook.util.ReadJsonUtil;
+import com.leme.cookbook.util.EspressoIdlingResource;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,16 +50,25 @@ public class MainActivity extends AppCompatActivity implements BakingItemAdapter
 
         ApiInterface api = API_CLIENT_INSTANCE.getClient().create(ApiInterface.class);
         Call<List<Baking>> callRequest = api.getBakingData();
+
+        EspressoIdlingResource.increment();
+
         callRequest.enqueue(new Callback<List<Baking>>() {
             @Override
             public void onResponse(Call<List<Baking>> call, Response<List<Baking>> response) {
                 bakings = response.body();
                 mBakingItemAdapter.setBakingData(bakings);
+                if (!EspressoIdlingResource.getIdlingResource().isIdleNow()) {
+                    EspressoIdlingResource.decrement(); // Set app as idle.
+                }
             }
 
             @Override
             public void onFailure(Call<List<Baking>> call, Throwable throwable) {
                 Toast.makeText(MainActivity.this, "Request error...", Toast.LENGTH_SHORT).show();
+                if (!EspressoIdlingResource.getIdlingResource().isIdleNow()) {
+                    EspressoIdlingResource.decrement(); // Set app as idle.
+                }
             }
         });
 
@@ -73,4 +83,5 @@ public class MainActivity extends AppCompatActivity implements BakingItemAdapter
         intent.putExtra(BAKING_INDEX, index);
         startActivity(intent);
     }
+
 }
